@@ -3,7 +3,6 @@ import { useState } from "react";
 import { lusitana } from "../ui/fonts";
 
 export default function Dashboard() {
-
   
   const [dayWeek, setDayWeek] =useState(1);
   const [age, setAge] =useState(18);
@@ -37,8 +36,8 @@ export default function Dashboard() {
 
 
 
-    return (
-    <div className="h-full grid justify-center items-center">
+return (
+<div className="h-full grid justify-center items-center">
 <form className="max-w-md mx-auto p-10 rounded-lg">
   <h3 className={`${lusitana.className} pb-7 text-4xl text-gray-800`}>Formulario</h3>
   <div className="relative z-0 w-full mb-5 group">

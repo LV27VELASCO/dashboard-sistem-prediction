@@ -4,10 +4,10 @@ import { lusitana } from '../ui/fonts';
 import { useState } from 'react';
 import { ISingUp } from '../lib/definitions';
 import { useRouter } from 'next/navigation';
-
 export default function SingUp() {
 
   const [isAdmin, setIsAdmin] = useState(true)
+  const [info, setInfo] = useState("")
   const [formData,setFormData] = useState<ISingUp>({
     userName: '',
     email: '',
@@ -41,10 +41,14 @@ export default function SingUp() {
           throw new Error('Error al enviar datos al servidor');
         }else{
             const res:any = await response.json();
-            if(!res.error){
+            console.log(res)
+            if(res.error !=="User already registered"){
                 router.push('/login');
             }else{
-                console.log(res)
+              setInfo(res.error)
+              setTimeout(() => {
+                setInfo("")
+              }, 3000);
             }
         }
   }
@@ -115,6 +119,9 @@ export default function SingUp() {
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Admin</span>
           </label>
+        </div>
+        <div className='pb-3'>
+          <p className="overflow-hidden text-sm text-red-600">{info}</p>
         </div>
         <div className="flex items-center justify-between">
           <Link

@@ -11,6 +11,7 @@ export default function Login() {
       email: '',
       password: '',
     });
+    const [info, setInfo] = useState("")
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -39,9 +40,11 @@ export default function Login() {
             const res:any = await response.json();
             if(!res.error){
                 console.log("exitoso")
+                localStorage.setItem("admin",res.is_admin);
+                localStorage.setItem("id",res.user_id);
                 router.push('/dashboard');
             }else{
-                console.log(res)
+              setInfo(res.error)
             }
         }
       };
@@ -86,6 +89,9 @@ export default function Login() {
           >
             Password
           </label>
+        </div>
+        <div className='pb-3'>
+          <p className="overflow-hidden text-sm text-red-600">{info}</p>
         </div>
         <div className="flex items-center justify-between">
           <Link
