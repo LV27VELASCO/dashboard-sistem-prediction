@@ -1,4 +1,3 @@
-'use client'
 import React, { useEffect, useState } from "react";
 import { lusitana } from "../ui/fonts";
 import { IFormulario } from "../lib/definitions";
