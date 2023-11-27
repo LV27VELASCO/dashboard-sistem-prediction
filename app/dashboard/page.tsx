@@ -137,12 +137,14 @@ const enviarDatosAlServidor = async (data: IFormulario) => {
     }
   }
 
-    useEffect(()=>{
-      if(admin =="true"){
+
+  useEffect(function persistForm() {
+    // 👍 We're not breaking the first rule anymore
+    if(admin =="true"){
       obtenerArbolDesicion()
       obtenerRedesNeuronales()
     }
-    },[])
+  });
 
 
 return (
