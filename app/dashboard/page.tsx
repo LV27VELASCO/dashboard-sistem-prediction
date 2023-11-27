@@ -157,7 +157,7 @@ return (
     height={620}
     className="block"
     alt="imagen sistema prediccion"/>
-    <p className="p-2">
+    <p className="p-4 font-semibold text-base text-gray-800">
       {textAD}
     </p>
     <Image
@@ -166,7 +166,7 @@ return (
     height={620}
     className="block"
     alt="imagen sistema prediccion"/>
-    <p className="p-2">
+    <p className="p-4 font-semibold text-base text-gray-800">
       {textRN}
     </p>
   </div>
