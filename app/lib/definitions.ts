@@ -15,3 +15,18 @@ export interface ISingUp {
   admin: boolean;
 }
 
+export interface IFormulario {
+  user_id: number,
+  first_open: string,
+  dayofweek: number,
+  hour: string,
+  age: number,
+  screen_list: string,
+  numscreens: number,
+  minigame: number,
+  used_premium_feature: number,
+  enrolled: number,
+  enrolled_date: string,
+  liked: number
+}
+
