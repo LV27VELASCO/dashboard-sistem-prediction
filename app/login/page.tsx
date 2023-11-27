@@ -5,8 +5,6 @@ import { lusitana } from '../ui/fonts';
 import { useState } from 'react';
 import { ILogin } from '../lib/definitions';
 
-
-
 export default function Login() {
     const router = useRouter();
     const [formData, setFormData] = useState<ILogin>({
