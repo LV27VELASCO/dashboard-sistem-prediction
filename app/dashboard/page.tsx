@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { lusitana } from "../ui/fonts";
 import { IFormulario } from "../lib/definitions";
+import Image from "next/image";
 
 export default function Dashboard() {
   const [dayWeek, setDayWeek] =useState(1);
@@ -10,6 +11,8 @@ export default function Dashboard() {
   const [isPremium, setIsPremium] = useState(true)
   const [isLiked, setIsLiked] = useState(true)
   const [isInscrito, setIsInscrito] = useState(true)
+  const [textRN,setTextRN]=useState("")
+  const [textAD,setTextAD]=useState("")
   const [formulario, setFormulario] = useState<IFormulario>({
   user_id: 0,
   first_open: "",
@@ -49,8 +52,46 @@ export default function Dashboard() {
     
 };
 
-const enviarDatosAlServidor = async (data: IFormulario) => {
+const obtenerArbolDesicion = async () => {
   const response = await fetch("https://aerlonieapi.shop/api/datos",{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Error al enviar datos al servidor');
+    }else{
+        const res:any = await response.json();
+        if(!res.error){
+            setTextAD(res.mensaje)
+        }else{
+          alert(res.error)
+        }
+    }
+  }
+
+  const obtenerRedesNeuronales = async () => {
+    const response = await fetch("https://aerlonieapi.shop/api/resultados_redesneuronales",{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Error al enviar datos al servidor');
+      }else{
+          const res:any = await response.json();
+          if(!res.error){
+              setTextRN(res.mensaje)
+          }else{
+            alert(res.error)
+          }
+      }
+    }
+
+const enviarDatosAlServidor = async (data: IFormulario) => {
+  const response = await fetch("https://aerlonieapi.shop/api/resultado_arbolesdecicion",{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -96,12 +137,39 @@ const enviarDatosAlServidor = async (data: IFormulario) => {
     }
   }
 
+  if(admin =="true"){
+    useEffect(()=>{
+      obtenerArbolDesicion()
+      obtenerRedesNeuronales()
+    },[])
+  }
+
+
 return (
-<div className="h-full grid justify-center items-center">
+<div className="h-full grid justify-center items-center pb-6">
   {
   admin =="true"
   ?
-  <div> Hola admin</div>
+  <div className="w-full">
+    <Image
+    src="/SISTEMA_PREDICCION_1.jpg"
+    width={560}
+    height={620}
+    className="block"
+    alt="imagen sistema prediccion"/>
+    <p className="p-2">
+      {textAD}
+    </p>
+    <Image
+    src="/SISTEMA_PREDICCION_2.jpg"
+    width={560}
+    height={620}
+    className="block"
+    alt="imagen sistema prediccion"/>
+    <p className="p-2">
+      {textRN}
+    </p>
+  </div>
   :
   <form className="max-w-md mx-auto p-10 rounded-lg" onSubmit={handleSubmit}>
   <h3 className={`${lusitana.className} pb-7 text-4xl text-gray-800`}>Formulario</h3>

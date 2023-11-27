@@ -39,7 +39,7 @@ export default function Page() {
         src="/background-dashboard-mobile.png"
         width={560}
         height={620}
-        className="block md:hidden"
+        className="block"
         alt="Screenshot of the dashboard project showing mobile version"
       />
         </div>
