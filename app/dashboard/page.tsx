@@ -137,12 +137,12 @@ const enviarDatosAlServidor = async (data: IFormulario) => {
     }
   }
 
-  if(admin =="true"){
     useEffect(()=>{
+      if(admin =="true"){
       obtenerArbolDesicion()
       obtenerRedesNeuronales()
+    }
     },[])
-  }
 
 
 return (
