@@ -49,7 +49,13 @@ export default function Dashboard() {
       formulario.numscreens = formulario.screen_list.split(',').length;
     try
     {
-        await enviarDatosAlServidor(formulario)
+      if(!formulario.first_open.includes("12:00:00") && !formulario.enrolled_date.includes("12:00:00"))
+      {
+        formulario.first_open = `${formulario.first_open} 12:00:00`;
+        formulario.enrolled_date = `${formulario.enrolled_date} 12:00:00`;
+      }
+      
+      await enviarDatosAlServidor(formulario)
     }catch(error)
     {
         console.error('Error al enviar datos:', error);
@@ -96,6 +102,7 @@ const obtenerArbolDesicion = async () => {
     }
 
 const enviarDatosAlServidor = async (data: IFormulario) => {
+  console.log(data)
   const response = await fetch("https://aerlonieapi.shop/api/resultado_arbolesdecicion",{
       method: 'POST',
       headers: {
