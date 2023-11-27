@@ -27,9 +27,14 @@ export default function Dashboard() {
   enrolled_date: "",
   liked: 0
   })
+  let admin:any= "";
 
-  let admin= localStorage.getItem("admin");
+  if (typeof window !== 'undefined') {
+     admin = localStorage.getItem("admin");
+  }
+
   let DiasSemana=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
